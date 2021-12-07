@@ -1,7 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import { useEffect } from 'react';
+import backend from './api/backend';
 
 function App() {
+  useEffect(() => {
+    (async () => {
+      await backend.get('/articles/index')
+        .then(response => {
+          console.log(response);
+        })
+    })()
+  }, [])
   return (
     <div className="App">
       <header className="App-header">
