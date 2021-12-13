@@ -7,6 +7,7 @@ import {
   Box,
   TextField,
   Button,
+  Paper,
 } from '@mui/material'
 
 function Login() {
@@ -20,13 +21,16 @@ function Login() {
     <ThemeProvider theme={darkTheme}>
       <Container maxWidth="xs">
         <CssBaseline>
-          <Box
+          <Paper
             sx={{
               marginTop: 8,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              p: 5,
+              borderRadius: 2,
             }}
+            elevation={3}
           >
             <Box 
               component="img"
@@ -57,7 +61,7 @@ function Login() {
               fullWidth
               sx={{ mt: 3, mb: 2 }}
             >Log In</Button>
-          </Box>
+          </Paper>
         </CssBaseline>
       </Container>
     </ThemeProvider>
