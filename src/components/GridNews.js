@@ -6,7 +6,7 @@ import {
 import NewsCard from '../components/NewsCard';
 
 function GridNews({ news }) {
-  if (!news) {
+  if (news.length === 0) {
     return (
       <Typography variant="h5">No Article Available</Typography>
     )
@@ -16,6 +16,7 @@ function GridNews({ news }) {
       {news.map(data => (
         <Grid item xs={2} sm={4} md={4}>
           <NewsCard
+            articleId={data.id}
             source={data.source}
             category={data.category}
             image={data.picture}

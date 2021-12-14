@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   CardActions,
@@ -8,11 +8,34 @@ import {
   Typography,
   IconButton,
   Avatar,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  Button,
 } from '@mui/material';
 import { red } from '@mui/material/colors'
 import { Delete } from '@mui/icons-material';
+import backend from '../api/backend';
 
-export default function NewsCard({ source, category, image, title, content }) {
+export default function NewsCard({ articleId, source, category, image, title, content }) {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
+  const deleteArticle = async () => {
+    await backend.delete(`/articles/destroy/${articleId}`)
+    setOpen(false);
+    window.location.reload()
+  }
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
@@ -39,9 +62,32 @@ export default function NewsCard({ source, category, image, title, content }) {
       </CardContent>
       <CardActions>
         <IconButton aria-label="delete">
-          <Delete />
+          <Delete onClick={handleClickOpen} />
         </IconButton>
       </CardActions>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Delete article?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            This article will be deleted permanently.
+            <br />
+            <b>{title}</b>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>No</Button>
+          <Button onClick={deleteArticle} autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 }
