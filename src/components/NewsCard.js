@@ -14,10 +14,12 @@ import {
   DialogContent,
   DialogContentText,
   Button,
+  CardActionArea,
 } from '@mui/material';
 import { red } from '@mui/material/colors'
 import { Delete } from '@mui/icons-material';
 import backend from '../api/backend';
+import { Link } from 'react-router-dom';
 
 export default function NewsCard({ articleId, source, category, image, title, content }) {
   const [open, setOpen] = useState(false);
@@ -38,28 +40,30 @@ export default function NewsCard({ articleId, source, category, image, title, co
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            {source[0]}
-          </Avatar>
-        }
-        title={source}
-        subheader={category.replace(category[0], category[0].toUpperCase())}
-      />
-      <CardMedia
-        component="img"
-        height="140"
-        image={image}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {title}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" noWrap="true">
-          {content}
-        </Typography>
-      </CardContent>
+      <CardActionArea component={Link} to={`/detail/${articleId}`}>
+        <CardHeader
+          avatar={
+            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+              {source[0]}
+            </Avatar>
+          }
+          title={source}
+          subheader={category.replace(category[0], category[0].toUpperCase())}
+        />
+        <CardMedia
+          component="img"
+          height="140"
+          image={image}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {title}
+          </Typography>
+          <Typography variant="body2" color="text.secondary" noWrap="true">
+            {content}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
       <CardActions>
         <IconButton aria-label="delete">
           <Delete onClick={handleClickOpen} />
