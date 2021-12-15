@@ -1,6 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import {
+  Button,
   Container,
   CssBaseline,
   Typography
@@ -8,6 +9,8 @@ import {
 import Navbar from '../components/Navbar';
 import GridNews from '../components/GridNews';
 import backend from '../api/backend'
+import { Link } from 'react-router-dom';
+import { Add } from '@mui/icons-material';
 
 function LandingPage() {
   const [articles, setArticles] = useState([])
@@ -35,6 +38,11 @@ function LandingPage() {
       <Container>
         <CssBaseline>
           <Typography variant="h3" sx={{my: 3}}>Dashboard</Typography>
+          <Link to="/insert" style={{ textDecoration: 'none' }}>
+            <Button variant="contained" startIcon={<Add />} sx={{my: 2}}>
+              Add
+            </Button>
+          </Link>
           <GridNews news={articles} />
         </CssBaseline>
       </Container>
