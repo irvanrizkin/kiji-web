@@ -9,13 +9,33 @@ import {
   Button,
   Paper,
 } from '@mui/material'
+import { useFormik } from 'formik';
+import backend from '../api/backend';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+  const navigate = useNavigate();
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
     },
   });
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    onSubmit: async (values) => {
+      await backend.post('/users/login', values, { validateStatus: false })
+        .then((data) => {
+          if (data.status === 200) {
+            localStorage.setItem('token', data.data.token);
+            navigate('/');
+          }
+        })
+    }
+  })
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -43,24 +63,35 @@ function Login() {
               }}
               src={kijiLogo}
             />
-            <TextField 
-              label='Email'
-              variant='outlined'
-              fullWidth
-              margin='normal'
+            <form onSubmit={formik.handleSubmit}>
+              <TextField 
+                id='email'
+                name='email'
+                label='Email'
+                variant='outlined'
+                fullWidth
+                margin='normal'
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                />
+              <TextField
+                id='password'
+                name='password' 
+                label='Password'
+                variant='outlined'
+                fullWidth
+                margin='normal'
+                type='password'
+                value={formik.values.password}
+                onChange={formik.handleChange}
               />
-            <TextField 
-              label='Password'
-              variant='outlined'
-              fullWidth
-              margin='normal'
-              type='password'
-            />
-            <Button
-              variant='contained'
-              fullWidth
-              sx={{ mt: 3, mb: 2 }}
-            >Log In</Button>
+              <Button
+                variant='contained'
+                fullWidth
+                sx={{ mt: 3, mb: 2 }}
+                type='submit'
+              >Log In</Button>
+            </form>
           </Paper>
         </CssBaseline>
       </Container>

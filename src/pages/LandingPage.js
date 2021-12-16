@@ -9,11 +9,12 @@ import {
 import Navbar from '../components/Navbar';
 import GridNews from '../components/GridNews';
 import backend from '../api/backend'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Add } from '@mui/icons-material';
 
 function LandingPage() {
   const [articles, setArticles] = useState([])
+  const navigate = useNavigate()
 
   const darkTheme = createTheme({
     palette: {
@@ -22,6 +23,11 @@ function LandingPage() {
   });
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+    }
+
     async function getArticle() {
       await backend.get('/articles/index')
         .then(resp => {
@@ -30,7 +36,7 @@ function LandingPage() {
         })
     }
     getArticle()
-  }, [])
+  }, [navigate])
 
   return (
     <ThemeProvider theme={darkTheme}>

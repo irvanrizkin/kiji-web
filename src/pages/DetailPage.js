@@ -5,13 +5,14 @@ CssBaseline,
 } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import backend from '../api/backend'
 import DetailNews from '../components/DetailNews'
 
 function DetailPage() {
   const [article, setArticle] = useState({})
   const params = useParams();
+  const navigate = useNavigate()
 
   const darkTheme = createTheme({
     palette: {
@@ -20,6 +21,11 @@ function DetailPage() {
   });
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+    }
+
     async function getArticle() {
       await backend.get(`/articles/show/${params.id}`, { validateStatus: false })
         .then(resp => {
@@ -28,7 +34,7 @@ function DetailPage() {
         })
     }
     getArticle()
-  }, [params])
+  }, [params, navigate])
 
   return (
     <ThemeProvider theme={darkTheme}>

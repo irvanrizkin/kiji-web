@@ -10,12 +10,14 @@ Snackbar,
 Alert,
 } from '@mui/material';
 import { useFormik } from 'formik'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar';
 import backend from '../api/backend';
+import { useNavigate } from 'react-router-dom';
 
 function CreatePage() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate()
 
   const handleOpen = () => {
     setOpen(true);
@@ -64,6 +66,13 @@ function CreatePage() {
       label: 'Celebrity',
     },
   ];
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+    }
+  }, [navigate])
 
   return (
     <div>
