@@ -48,7 +48,7 @@ function CreatePage() {
     },
   });
 
-  const currencies = [
+  const categories = [
     {
       value: 'politics',
       label: 'Politics',
@@ -113,7 +113,7 @@ function CreatePage() {
                 value={formik.values.category}
                 onChange={formik.handleChange}
                 >
-                {currencies.map((option) => (
+                {categories.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>

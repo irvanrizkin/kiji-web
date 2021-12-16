@@ -39,7 +39,7 @@ export default function NewsCard({ articleId, source, category, image, title, co
   }
 
   return (
-    <Card fullWidth>
+    <Card>
       <CardActionArea component={Link} to={`/detail/${articleId}`}>
         <CardHeader
           avatar={
@@ -59,14 +59,14 @@ export default function NewsCard({ articleId, source, category, image, title, co
           <Typography gutterBottom variant="h5" component="div">
             {title}
           </Typography>
-          <Typography variant="body2" color="text.secondary" noWrap="true">
+          <Typography variant="body2" color="text.secondary" noWrap>
             {content}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <IconButton aria-label="delete">
-          <Delete onClick={handleClickOpen} />
+        <IconButton aria-label="delete" onClick={handleClickOpen}>
+          <Delete />
         </IconButton>
       </CardActions>
       <Dialog
