@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
+import CommentNews from './CommentNews';
 
 function DetailNews({ article }) {
   if (article === null) {
@@ -10,7 +11,8 @@ function DetailNews({ article }) {
     )
   }
 
-  const { title, content, category, source, picture } = article;
+  const { title, content, category, source, picture, comments } = article;
+  console.log(comments);
 
   return (
     <>
@@ -21,12 +23,14 @@ function DetailNews({ article }) {
       <Box 
         component="img"
         sx={{
-        width: '100%',
+          width: '100%',
         my: 1,
-        }}
+      }}
         src={picture}
       />
-      <Typography variant="p" sx={{my: 3}} style={{whiteSpace: 'pre-wrap'}}>{content}</Typography>
+      <Typography variant="p" sx={{mb: 3}} style={{whiteSpace: 'pre-wrap'}}>{content}</Typography>
+      <Typography variant="h4" sx={{my: 2}}>Comment</Typography>
+      <CommentNews comments={comments} />
     </>
   )
 }

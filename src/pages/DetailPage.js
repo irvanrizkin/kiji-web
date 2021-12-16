@@ -28,7 +28,7 @@ function DetailPage() {
         })
     }
     getArticle()
-  })
+  }, [params])
 
   return (
     <ThemeProvider theme={darkTheme}>
