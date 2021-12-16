@@ -29,7 +29,6 @@ function DetailPage() {
     async function getArticle() {
       await backend.get(`/articles/show/${params.id}`, { validateStatus: false })
         .then(resp => {
-          console.log(resp.data);
           setArticle(resp.data.article)
         })
     }

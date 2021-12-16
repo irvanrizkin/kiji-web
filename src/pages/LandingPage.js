@@ -31,7 +31,6 @@ function LandingPage() {
     async function getArticle() {
       await backend.get('/articles/index')
         .then(resp => {
-          console.log(resp.data);
           setArticles(resp.data.articles)
         })
     }

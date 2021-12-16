@@ -6,7 +6,6 @@ import React from 'react';
 import CommentCard from './CommentCard';
 
 function CommentNews({ comments }) {
-  console.log(comments);
   if (!comments) {
     return (
       <>

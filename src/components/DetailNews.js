@@ -42,8 +42,6 @@ function DetailNews({ article }) {
     navigate('/');
   }
 
-  console.log(comments);
-
   return (
     <>
       <Typography variant="h3" sx={{my: 2}}>{title}</Typography>
