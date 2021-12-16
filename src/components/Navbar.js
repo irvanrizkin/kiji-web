@@ -24,7 +24,7 @@ const Navbar = () => {
             <Link to='/'>
               <Box
                 component="img"
-                sx={{ mr: 2, maxWidth: 100, display: { xs: 'none', md: 'flex' } }}
+                sx={{ mr: 2, maxWidth: 100, display: { xs: 'flex', md: 'flex' } }}
                 src={kijiLogo}
               />
             </Link>

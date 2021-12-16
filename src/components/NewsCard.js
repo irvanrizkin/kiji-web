@@ -39,7 +39,7 @@ export default function NewsCard({ articleId, source, category, image, title, co
   }
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card fullWidth>
       <CardActionArea component={Link} to={`/detail/${articleId}`}>
         <CardHeader
           avatar={
