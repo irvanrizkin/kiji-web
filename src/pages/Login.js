@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import kijiLogo from '../assets/kiji_simple.png';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import {
@@ -8,18 +8,29 @@ import {
   TextField,
   Button,
   Paper,
+  Snackbar,
+  Alert,
 } from '@mui/material'
 import { useFormik } from 'formik';
 import backend from '../api/backend';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
+  const [open, setOpen] = useState(false)
   const navigate = useNavigate();
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
     },
   });
+
+  const handleOpen = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -33,6 +44,7 @@ function Login() {
             localStorage.setItem('token', data.data.token);
             navigate('/');
           }
+          handleOpen();
         })
     }
   })
@@ -71,6 +83,7 @@ function Login() {
                 variant='outlined'
                 fullWidth
                 margin='normal'
+                required
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 />
@@ -82,6 +95,7 @@ function Login() {
                 fullWidth
                 margin='normal'
                 type='password'
+                required
                 value={formik.values.password}
                 onChange={formik.handleChange}
               />
@@ -93,6 +107,15 @@ function Login() {
               >Log In</Button>
             </form>
           </Paper>
+          <Snackbar
+            open={open}
+            autoHideDuration={3000}
+            onClose={handleClose}
+          >
+            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+              Wrong Credential
+            </Alert>
+          </Snackbar>
         </CssBaseline>
       </Container>
     </ThemeProvider>
