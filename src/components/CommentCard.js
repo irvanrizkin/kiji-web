@@ -14,7 +14,7 @@ import {
 import { Delete } from '@mui/icons-material';
 import backend from '../api/backend';
 
-function CommentCard({ singleComment }) {
+function CommentCard({ singleComment, refreshArticle }) {
   const { id, name, comment } = singleComment;
   const [open, setOpen] = useState(false);
 
@@ -29,7 +29,7 @@ function CommentCard({ singleComment }) {
   const deleteComment = async () => {
     await backend.delete(`/comments/destroy/${id}`);
     setOpen(false);
-    window.location.reload();
+    refreshArticle();
   }
 
   return (

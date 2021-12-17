@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import backend from '../api/backend';
 import CommentNews from './CommentNews';
 
-function DetailNews({ article }) {
+function DetailNews({ article, refreshArticle }) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -62,7 +62,7 @@ function DetailNews({ article }) {
       />
       <Typography variant="p" sx={{mb: 3}} style={{whiteSpace: 'pre-wrap'}}>{content}</Typography>
       <Typography variant="h4" sx={{my: 2}}>Comment</Typography>
-      <CommentNews comments={comments} />
+      <CommentNews comments={comments} refreshArticle={refreshArticle} />
       <Dialog
         open={open}
         onClose={handleClose}

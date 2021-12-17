@@ -5,7 +5,7 @@ import {
 } from '@mui/material'
 import NewsCard from '../components/NewsCard';
 
-function GridNews({ news }) {
+function GridNews({ news, refreshArticle }) {
   if (news.length === 0) {
     return (
       <Typography variant="h5">No Article Available</Typography>
@@ -22,6 +22,7 @@ function GridNews({ news }) {
             image={data.picture}
             title={data.title}
             content={data.content}
+            refreshArticle={refreshArticle}
           />
         </Grid>
       ))}

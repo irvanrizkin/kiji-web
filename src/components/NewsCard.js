@@ -21,7 +21,8 @@ import { Delete } from '@mui/icons-material';
 import backend from '../api/backend';
 import { Link } from 'react-router-dom';
 
-export default function NewsCard({ articleId, source, category, image, title, content }) {
+export default function NewsCard(props) {
+  const { articleId, source, category, image, title, content, refreshArticle } = props
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -35,7 +36,7 @@ export default function NewsCard({ articleId, source, category, image, title, co
   const deleteArticle = async () => {
     await backend.delete(`/articles/destroy/${articleId}`)
     setOpen(false);
-    window.location.reload()
+    refreshArticle();
   }
 
   return (

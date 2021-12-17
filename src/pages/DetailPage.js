@@ -20,6 +20,13 @@ function DetailPage() {
     },
   });
 
+  async function handleRefresh() {
+    await backend.get(`/articles/show/${params.id}`, { validateStatus: false })
+        .then(resp => {
+          setArticle(resp.data.article)
+        })
+  }
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -40,7 +47,7 @@ function DetailPage() {
       <Navbar />
       <Container sx={{mb: 3}}>
         <CssBaseline>
-          <DetailNews article={article} />
+          <DetailNews article={article} refreshArticle={handleRefresh} />
         </CssBaseline>
       </Container>
     </ThemeProvider>

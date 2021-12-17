@@ -22,18 +22,19 @@ function LandingPage() {
     },
   });
 
+  async function getArticle() {
+    await backend.get('/articles/index')
+      .then(resp => {
+        setArticles(resp.data.articles)
+      })
+  }
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/login');
     }
 
-    async function getArticle() {
-      await backend.get('/articles/index')
-        .then(resp => {
-          setArticles(resp.data.articles)
-        })
-    }
     getArticle()
   }, [navigate])
 
@@ -48,7 +49,7 @@ function LandingPage() {
               Add
             </Button>
           </Link>
-          <GridNews news={articles} />
+          <GridNews news={articles} refreshArticle={getArticle} />
         </CssBaseline>
       </Container>
     </ThemeProvider>
